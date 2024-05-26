@@ -25,6 +25,8 @@ Access: O(n)
 Pop: O(n)
 Shift: O(1)
 Remove: O(n)
+
+they are awesome when you need insertion and deletion to the beginning frequently
 */
 
 type Node struct {
