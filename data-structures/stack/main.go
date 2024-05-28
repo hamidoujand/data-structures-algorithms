@@ -9,6 +9,9 @@ another one "undo-redo" functionality
 
 since its an abstraction data structure, there are multiple ways to implement it
 
+Big O:
+insertion: O(1)
+deletion: O(1)
 */
 
 type Node struct {
