@@ -19,6 +19,13 @@ always insert the "left" child first then the "right" child
 we use a "slice" to implement it, and for parent at index "n" its left child will be at "2n +1" and right child "2n+2"
 and for any "child" at index "n", its parent is at idx "(n-1)/2"
 
+
+Big O:
+insertion: O(log n)
+deletion: O(log n)
+search: O(n) not used for searching usually.
+
+
 */
 
 type MaxBinaryHeap struct {
