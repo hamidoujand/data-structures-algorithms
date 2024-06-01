@@ -1,8 +1,6 @@
 package main
 
-import (
-	"fmt"
-)
+import "fmt"
 
 /*
 Graphs: it's a collection of "nodes" and "connection" between those nodes
@@ -22,6 +20,12 @@ Types Of Graphs:
 they have a lot of usage in real world, like "GPS" or "Social Networks" or "Recommendation engines" ...
 
 NOTE: a tree is a type of "Graph"
+
+
+Graph Traversal:
+
+-DFS: means we first visit the neighbors of a node and neighbors of that node and so on
+-BSF: means we visit all neighbors in the same depth first before moving to neighbors of neighbors
 
 */
 
@@ -68,20 +72,95 @@ func (g *Graph) RemoveVertex(v string) {
 	delete(g.adjacencyList, v)
 }
 
+func (g *Graph) DFSRecursive(start string) []string {
+	results := make([]string, 0)
+	visited := make(map[string]bool) //can use "empty struct" as well
+	g.traverse(start, &results, visited)
+	return results
+}
+
+func (g *Graph) traverse(vertex string, result *[]string, visited map[string]bool) {
+	if vertex == "" {
+		return
+	}
+
+	visited[vertex] = true
+	*result = append(*result, vertex)
+	neighbors := g.adjacencyList[vertex]
+	for _, neighbor := range neighbors {
+		if !visited[neighbor] {
+			g.traverse(neighbor, result, visited)
+		}
+	}
+}
+
+func (g *Graph) DFSIterative(start string) []string {
+	results := make([]string, 0)
+	visited := make(map[string]bool)
+	stack := []string{start} //push start on top of the stack
+
+	visited[start] = true //mark it as visited
+
+	for len(stack) > 0 {
+		nextVertex := stack[len(stack)-1] //access
+		stack = stack[:len(stack)-1]      //pop it
+
+		//append it into results
+		results = append(results, nextVertex)
+
+		neighbors := g.adjacencyList[nextVertex]
+		for _, neighbor := range neighbors {
+			if !visited[neighbor] {
+				visited[neighbor] = true
+				stack = append(stack, neighbor)
+			}
+		}
+
+	}
+	return results
+}
+
+func (g *Graph) BFSIterative(start string) []string {
+	results := make([]string, 0)
+	queue := []string{start}
+	visited := make(map[string]bool)
+	visited[start] = true
+
+	for len(queue) > 0 {
+		current := queue[0]
+		queue = queue[1:]
+		results = append(results, current)
+		visited[current] = true
+		for _, neighbor := range g.adjacencyList[current] {
+			if !visited[neighbor] {
+				visited[neighbor] = true
+				queue = append(queue, neighbor)
+			}
+		}
+	}
+
+	return results
+}
+
 func main() {
 	g := Graph{
 		adjacencyList: make(map[string][]string),
 	}
-	g.AddVertex("tokyo")
-	g.AddVertex("dallas")
-	g.AddVertex("aspen")
-	g.AddEdge("dallas", "tokyo")
-	g.AddEdge("aspen", "dallas")
-	g.AddVertex("hongkong")
-	g.AddEdge("hongkong", "tokyo")
-	g.AddEdge("hongkong", "aspen")
-	g.AddEdge("hongkong", "dallas")
-	fmt.Println(g)
-	g.RemoveVertex("hongkong")
-	fmt.Println(g)
+	g.AddVertex("A")
+	g.AddVertex("B")
+	g.AddVertex("C")
+	g.AddVertex("D")
+	g.AddVertex("E")
+	g.AddVertex("F")
+	g.AddEdge("A", "B")
+	g.AddEdge("A", "C")
+	g.AddEdge("B", "D")
+	g.AddEdge("C", "E")
+	g.AddEdge("D", "E")
+	g.AddEdge("D", "F")
+	g.AddEdge("E", "F")
+
+	fmt.Println(g.DFSRecursive("A"))
+	fmt.Println(g.DFSIterative("A"))
+	fmt.Println(g.BFSIterative("A"))
 }
