@@ -1,0 +1,22 @@
+Dynamic Programming: a method for solving complex problems, by breaking it down
+to a collection of simpler sub-problems, solving each of those just once and storing
+their solution
+
+NOTE: all problems can not be solved with dynamic programming, but those that can
+be solved with it, it make a huge performance difference.
+
+you can use it when:
+
+- "Overlapping Subproblem": means repetition, things that repeating in sub-problems
+for example "Fibonacci sequence" is a repetition of previous sub-problems
+the "repetition" is the key, only "Subproblem" is not enough, the Subproblem that repeats over and over 
+is going to make it eligible for "Dynamic Programming"
+
+
+
+how to remember the result to those repeating sub-problems:
+
+- "Memoization" : storing result into "array" or "map/object" and reuse them as cached values when we need them (top to bottom)
+
+- "Tabulation: : storing the result of previous operations inside of "slice/array/obj/map" and this usually uses "iteration" (bottom to up)
+
