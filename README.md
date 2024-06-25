@@ -18,4 +18,4 @@ Ensure you have Go installed on your machine. You can download it from the [offi
 Follow these steps to set up your local development environment:
 
 1. Clone the repository: `git clone https://github.com/hamidoujand/data-structures-algorithms.git`
-2. Run it: `go run./path/to/solution`
+2. Run it: `go run ./path/to/solution`
